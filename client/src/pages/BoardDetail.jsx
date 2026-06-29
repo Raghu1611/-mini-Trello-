@@ -7,6 +7,7 @@ import { useSocket } from '../context/SocketContext';
 import Navbar from '../components/Navbar';
 import CardModal from '../components/CardModal';
 import ConfirmModal from '../components/ConfirmModal';
+import { Plus, ArrowLeft, Trash2, Lock, Calendar, User as UserIcon } from 'lucide-react';
 
 const COLUMNS = ['To Do', 'In Progress', 'Done'];
 
@@ -253,10 +254,10 @@ export default function BoardDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 text-white font-sans">
+      <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
         <Navbar />
-        <div className="flex justify-center items-center py-40">
-          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
+        <div className="flex flex-1 justify-center items-center py-40">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-600"></div>
         </div>
       </div>
     );
@@ -264,11 +265,12 @@ export default function BoardDetail() {
 
   if (!board) {
     return (
-      <div className="min-h-screen bg-slate-950 text-white font-sans">
+      <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
         <Navbar />
         <div className="max-w-md mx-auto py-20 text-center space-y-4">
-          <p className="text-xl font-bold">Workspace Board not found</p>
-          <Link to="/" className="inline-block px-4 py-2 bg-slate-800 border border-slate-700 text-sm font-semibold rounded-xl text-blue-400">
+          <p className="text-xl font-medium text-gray-900">Workspace Board not found</p>
+          <Link to="/" className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50 transition-colors">
+            <ArrowLeft size={16} />
             Back to Dashboard
           </Link>
         </div>
@@ -277,28 +279,28 @@ export default function BoardDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white font-sans flex flex-col">
+    <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
       <Navbar />
 
       {/* Board Info Subheader */}
-      <div className="bg-slate-900/40 border-b border-slate-900 py-6 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white border-b border-gray-200 py-6 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <div className="flex items-center gap-3">
-              <Link to="/" className="text-slate-400 hover:text-white transition duration-200 text-sm">
-                ← Boards
+              <Link to="/" className="text-gray-400 hover:text-gray-900 transition-colors text-sm font-medium flex items-center gap-1">
+                <ArrowLeft size={16} /> Boards
               </Link>
-              <span className="text-slate-650">/</span>
-              <h1 className="text-2xl font-bold">{board.name}</h1>
+              <span className="text-gray-300">/</span>
+              <h1 className="text-xl font-semibold text-gray-900">{board.name}</h1>
             </div>
-            <p className="text-sm text-slate-400 mt-1">{board.description}</p>
+            <p className="text-sm text-gray-500 mt-1">{board.description}</p>
           </div>
 
           <button
             onClick={handleOpenCreateModal}
-            className="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-sm font-semibold transition-all duration-200 shadow-md transform hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-sm font-medium rounded-md text-white transition-colors shadow-sm"
           >
-            + Add Card
+            <Plus size={18} /> Add Task
           </button>
         </div>
       </div>
@@ -306,7 +308,7 @@ export default function BoardDetail() {
       {/* Error alerts */}
       {error && (
         <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 mt-6">
-          <div className="bg-red-950/40 border border-red-900 text-red-400 px-4 py-3 rounded-xl text-sm shadow-md">
+          <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 text-sm rounded-r-md shadow-sm">
             {error}
           </div>
         </div>
@@ -323,16 +325,16 @@ export default function BoardDetail() {
                 .sort((a, b) => a.position - b.position);
 
               return (
-                <div key={columnName} className="bg-slate-900/50 border border-slate-900 rounded-2xl p-4 flex flex-col max-h-[75vh]">
+                <div key={columnName} className="bg-gray-100 border border-gray-200 rounded-lg p-4 flex flex-col max-h-[75vh]">
                   {/* Column Header */}
-                  <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-800/60">
-                    <h3 className="font-bold text-slate-200 flex items-center gap-2">
-                      <span className={`w-2.5 h-2.5 rounded-full ${
-                        columnName === 'To Do' ? 'bg-amber-500' : columnName === 'In Progress' ? 'bg-blue-500' : 'bg-emerald-500'
+                  <div className="flex justify-between items-center mb-4 pb-2 border-b border-gray-200">
+                    <h3 className="font-semibold text-gray-700 flex items-center gap-2 text-sm uppercase tracking-wider">
+                      <span className={`w-2 h-2 rounded-full ${
+                        columnName === 'To Do' ? 'bg-gray-400' : columnName === 'In Progress' ? 'bg-blue-500' : 'bg-emerald-500'
                       }`} />
                       {columnName}
                     </h3>
-                    <span className="bg-slate-800 text-slate-400 text-xs px-2 py-0.5 rounded-full font-semibold">
+                    <span className="bg-white border border-gray-200 text-gray-500 text-xs px-2 py-0.5 rounded-full font-semibold">
                       {columnCards.length}
                     </span>
                   </div>
@@ -343,100 +345,101 @@ export default function BoardDetail() {
                       <div
                         ref={provided.innerRef}
                         {...provided.droppableProps}
-                        className={`flex-1 overflow-y-auto space-y-3 min-h-[150px] rounded-lg transition-colors p-1 ${
-                          snapshot.isDraggingOver ? 'bg-slate-850/20' : ''
+                        className={`flex-1 overflow-y-auto space-y-3 min-h-[150px] rounded-md transition-colors ${
+                          snapshot.isDraggingOver ? 'bg-gray-200/50' : ''
                         }`}
                       >
                         {columnCards.map((card, index) => {
                           const userCanEdit = canManageCard(card);
                           return (
-                            <Draggable
-                              key={card.id}
-                              draggableId={card.id}
-                              index={index}
-                              isDragDisabled={!userCanEdit}
-                            >
-                              {(provided, snapshot) => (
-                                <div
-                                  ref={provided.innerRef}
-                                  {...provided.draggableProps}
-                                  {...provided.dragHandleProps}
-                                  onClick={() => handleOpenEditModal(card)}
-                                  className={`bg-slate-900 border p-4 rounded-xl shadow-md transition-all duration-250 flex flex-col select-none relative group ${
-                                    snapshot.isDragging 
-                                      ? 'border-blue-500 bg-slate-850 rotate-1 scale-105 shadow-xl z-50' 
-                                      : 'border-slate-800 hover:border-slate-700/80 hover:bg-slate-900/80 cursor-grab'
-                                  }`}
-                                >
-                                  {/* Task Top Meta (Priority, Lock indicator) */}
-                                  <div className="flex justify-between items-start gap-2 mb-2">
-                                    <span className={`px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wide border ${
-                                      card.priority === 'high' 
-                                        ? 'bg-rose-950/50 text-rose-400 border-rose-900/60' 
-                                        : card.priority === 'medium'
-                                        ? 'bg-amber-950/50 text-amber-400 border-amber-900/60'
-                                        : 'bg-emerald-950/50 text-emerald-400 border-emerald-900/60'
-                                    }`}>
-                                      {card.priority}
-                                    </span>
+                             <Draggable
+                               key={card.id}
+                               draggableId={card.id}
+                               index={index}
+                               isDragDisabled={!userCanEdit}
+                             >
+                               {(provided, snapshot) => (
+                                 <div
+                                   ref={provided.innerRef}
+                                   {...provided.draggableProps}
+                                   {...provided.dragHandleProps}
+                                   onClick={() => handleOpenEditModal(card)}
+                                   className={`bg-white border p-4 rounded-md shadow-sm transition-all flex flex-col select-none relative group ${
+                                     snapshot.isDragging 
+                                       ? 'border-blue-500 rotate-1 scale-105 shadow-lg z-50' 
+                                       : 'border-gray-200 hover:border-gray-300 hover:shadow cursor-grab'
+                                   }`}
+                                 >
+                                   {/* Task Top Meta (Priority, Lock indicator) */}
+                                   <div className="flex justify-between items-start gap-2 mb-2">
+                                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider border ${
+                                       card.priority === 'high' 
+                                         ? 'bg-rose-50 text-rose-700 border-rose-200' 
+                                         : card.priority === 'medium'
+                                         ? 'bg-amber-50 text-amber-700 border-amber-200'
+                                         : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                     }`}>
+                                       {card.priority}
+                                     </span>
 
-                                    {!userCanEdit ? (
-                                      <span className="text-xs text-slate-550 flex items-center gap-1 opacity-70 cursor-not-allowed" title="Read-only card (You do not own this)">
-                                        🔒 Lock
-                                      </span>
-                                    ) : (
-                                      <button
-                                        onClick={(e) => triggerDeleteCard(card, e)}
-                                        className="text-xs text-slate-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                                        title="Delete Task"
-                                      >
-                                        🗑️
-                                      </button>
-                                    )}
-                                  </div>
+                                     {!userCanEdit ? (
+                                       <span className="text-gray-400 opacity-70 cursor-not-allowed" title="Read-only card (You do not own this)">
+                                         <Lock size={14} />
+                                       </span>
+                                     ) : (
+                                       <button
+                                         onClick={(e) => triggerDeleteCard(card, e)}
+                                         className="text-gray-400 hover:text-red-500 hover:bg-red-50 p-1 rounded transition-colors opacity-0 group-hover:opacity-100"
+                                         title="Delete Task"
+                                       >
+                                         <Trash2 size={14} />
+                                       </button>
+                                     )}
+                                   </div>
 
-                                  {/* Task Title & Description */}
-                                  <h4 className={`font-semibold text-slate-100 text-sm leading-snug group-hover:text-blue-300 transition-colors ${
-                                    columnName === 'Done' ? 'line-through text-slate-400 group-hover:text-slate-300' : ''
-                                  }`}>
-                                    {card.title}
-                                  </h4>
-                                  {card.description && (
-                                    <p className="text-slate-400 text-xs mt-1.5 line-clamp-2 leading-relaxed">
-                                      {card.description}
-                                    </p>
-                                  )}
+                                   {/* Task Title & Description */}
+                                   <h4 className={`font-medium text-gray-900 text-sm leading-tight group-hover:text-blue-600 transition-colors ${
+                                     columnName === 'Done' ? 'line-through text-gray-400 group-hover:text-gray-500' : ''
+                                   }`}>
+                                     {card.title}
+                                   </h4>
+                                   {card.description && (
+                                     <p className="text-gray-500 text-xs mt-2 line-clamp-2 leading-relaxed">
+                                       {card.description}
+                                     </p>
+                                   )}
 
-                                  {/* Task Bottom Details (Due Date, Assignee) */}
-                                  <div className="mt-4 pt-3 border-t border-slate-800/50 flex justify-between items-center text-[10px] text-slate-500">
-                                    {card.dueDate ? (
-                                      <span className={`flex items-center gap-1 font-semibold ${
-                                        isOverdue(card.dueDate) && columnName !== 'Done' 
-                                          ? 'text-red-400' 
-                                          : 'text-slate-400'
-                                      }`}>
-                                        📅 {new Date(card.dueDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
-                                      </span>
-                                    ) : (
-                                      <span />
-                                    )}
+                                   {/* Task Bottom Details (Due Date, Assignee) */}
+                                   <div className="mt-4 pt-3 border-t border-gray-100 flex justify-between items-center text-xs text-gray-500">
+                                     {card.dueDate ? (
+                                       <span className={`flex items-center gap-1 font-medium ${
+                                         isOverdue(card.dueDate) && columnName !== 'Done' 
+                                           ? 'text-red-500 bg-red-50 px-1.5 py-0.5 rounded' 
+                                           : 'text-gray-500'
+                                       }`}>
+                                         <Calendar size={12} />
+                                         {new Date(card.dueDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                                       </span>
+                                     ) : (
+                                       <span />
+                                     )}
 
-                                    {card.assignee ? (
-                                      <div className="flex items-center gap-1.5 bg-slate-950 px-2 py-1 rounded-lg border border-slate-800/80">
-                                        <div className="h-4 w-4 bg-indigo-600 rounded flex items-center justify-center font-bold text-[8px] text-white">
-                                          {getInitials(card.assignee.name)}
-                                        </div>
-                                        <span className="max-w-[70px] truncate text-slate-300 font-medium">
-                                          {card.assignee.name.split(' ')[0]}
-                                        </span>
-                                      </div>
-                                    ) : (
-                                      <span className="italic text-slate-600 font-sans">Unassigned</span>
-                                    )}
-                                  </div>
-                                </div>
-                              )}
-                            </Draggable>
+                                     {card.assignee ? (
+                                       <div className="flex items-center gap-1.5 bg-gray-50 px-2 py-1 rounded border border-gray-200">
+                                         <div className="h-4 w-4 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center font-bold text-[8px]">
+                                           {getInitials(card.assignee.name)}
+                                         </div>
+                                         <span className="max-w-[70px] truncate font-medium text-gray-700">
+                                           {card.assignee.name.split(' ')[0]}
+                                         </span>
+                                       </div>
+                                     ) : (
+                                       <span className="italic text-gray-400">Unassigned</span>
+                                     )}
+                                   </div>
+                                 </div>
+                               )}
+                             </Draggable>
                           );
                         })}
                         {provided.placeholder}

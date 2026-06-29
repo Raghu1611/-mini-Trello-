@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Layout, LogOut } from 'lucide-react';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -28,23 +29,25 @@ export default function Navbar() {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 text-white shadow-lg">
+    <nav className="sticky top-0 z-50 bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Navigation */}
           <div className="flex items-center space-x-8">
-            <Link to="/" className="flex items-center space-x-2 text-xl font-bold tracking-tight hover:opacity-90 transition-opacity">
-              <span className="bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">mini-Trello</span>
-              <span className="text-xl">🗂️</span>
+            <Link to="/" className="flex items-center space-x-2 text-gray-900 hover:opacity-80 transition-opacity">
+              <div className="p-1.5 bg-blue-600 text-white rounded-md">
+                <Layout size={20} />
+              </div>
+              <span className="text-lg font-bold tracking-tight">mini-Trello</span>
             </Link>
 
-            <div className="hidden md:flex space-x-1">
+            <div className="hidden md:flex space-x-4">
               <Link
                 to="/"
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                   isActive('/') 
-                    ? 'bg-slate-800 text-blue-400 border border-slate-700' 
-                    : 'text-slate-300 hover:bg-slate-850 hover:text-white'
+                    ? 'bg-gray-100 text-gray-900' 
+                    : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
                 }`}
               >
                 Dashboard
@@ -52,10 +55,10 @@ export default function Navbar() {
               {user.role === 'admin' && (
                 <Link
                   to="/admin"
-                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                     isActive('/admin')
-                      ? 'bg-slate-800 text-indigo-400 border border-slate-700'
-                      : 'text-slate-300 hover:bg-slate-850 hover:text-white'
+                      ? 'bg-gray-100 text-gray-900'
+                      : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
                   }`}
                 >
                   Admin Panel
@@ -66,30 +69,25 @@ export default function Navbar() {
 
           {/* User Profile & Logout */}
           <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-3 bg-slate-850 border border-slate-800 py-1.5 px-3 rounded-xl">
-              {/* User Avatar */}
-              <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-blue-500 to-indigo-600 flex items-center justify-center font-semibold text-sm shadow-md">
-                {getInitials(user.name)}
+            <div className="flex items-center space-x-3">
+              <div className="text-right hidden sm:block">
+                <p className="text-sm font-medium text-gray-900 leading-none">{user.name}</p>
+                <p className="text-xs text-gray-500 mt-1 capitalize">{user.role}</p>
               </div>
-              
-              <div className="hidden sm:block text-left">
-                <p className="text-xs font-semibold text-slate-100">{user.name}</p>
-                <span className={`inline-block px-2 py-0.5 mt-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
-                  user.role === 'admin' 
-                    ? 'bg-indigo-900/80 text-indigo-300 border border-indigo-700' 
-                    : 'bg-emerald-950/80 text-emerald-300 border border-emerald-800'
-                }`}>
-                  {user.role}
-                </span>
+              <div className="h-9 w-9 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-semibold text-sm border border-blue-200">
+                {getInitials(user.name)}
               </div>
             </div>
 
-            {/* Logout button */}
+            <div className="h-6 w-px bg-gray-200 mx-2 hidden sm:block"></div>
+
             <button
               onClick={handleLogout}
-              className="px-4 py-2 rounded-xl text-sm font-medium text-slate-300 bg-slate-800 border border-slate-700 hover:bg-red-950/40 hover:text-red-400 hover:border-red-900 transition-all duration-200"
+              className="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+              title="Sign Out"
             >
-              Sign Out
+              <LogOut size={18} />
+              <span className="hidden sm:inline">Sign out</span>
             </button>
           </div>
         </div>

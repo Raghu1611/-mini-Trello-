@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Layout } from 'lucide-react';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -39,27 +40,29 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 font-sans">
-      <div className="w-full max-w-md space-y-6 bg-slate-900/60 backdrop-blur-xl border border-slate-800 p-8 sm:p-10 rounded-2xl shadow-2xl">
-        <div className="text-center">
-          <span className="text-5xl">🗂️</span>
-          <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-white">
-            Create Account
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
+      <div className="w-full max-w-md bg-white border border-gray-200 p-8 sm:p-10 rounded-md shadow-sm">
+        <div className="flex flex-col items-center">
+          <div className="p-3 bg-blue-50 text-blue-600 rounded-md">
+            <Layout size={32} />
+          </div>
+          <h2 className="mt-6 text-2xl font-semibold tracking-tight text-gray-900">
+            Create an account
           </h2>
-          <p className="mt-2 text-sm text-slate-400">
-            Join mini-Trello and start collaborating
+          <p className="mt-2 text-sm text-gray-500">
+            Start organizing your tasks today
           </p>
         </div>
 
         {error && (
-          <div className="bg-red-950/40 border border-red-900 text-red-400 px-4 py-2.5 rounded-xl text-sm text-center">
+          <div className="mt-6 bg-red-50 border-l-4 border-red-500 text-red-700 p-4 text-sm rounded-r-md">
             {error}
           </div>
         )}
 
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
               Full Name
             </label>
             <input
@@ -70,12 +73,12 @@ export default function Register() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="John Doe"
-              className="mt-1 block w-full px-4 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition duration-200"
+              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
             />
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               Email Address
             </label>
             <input
@@ -86,12 +89,12 @@ export default function Register() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="mt-1 block w-full px-4 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition duration-200"
+              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Password
             </label>
             <input
@@ -102,12 +105,12 @@ export default function Register() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="•••••••• (Min 6 chars)"
-              className="mt-1 block w-full px-4 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition duration-200"
+              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
             />
           </div>
 
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
               Confirm Password
             </label>
             <input
@@ -118,7 +121,7 @@ export default function Register() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="••••••••"
-              className="mt-1 block w-full px-4 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition duration-200"
+              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
             />
           </div>
 
@@ -126,17 +129,17 @@ export default function Register() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-semibold rounded-xl text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-slate-905 transition-all duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-0.5"
+              className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              {loading ? 'Registering...' : 'Sign Up'}
+              {loading ? 'Creating Account...' : 'Sign Up'}
             </button>
           </div>
         </form>
 
-        <div className="text-center mt-4">
-          <p className="text-sm text-slate-400">
+        <div className="text-center mt-6">
+          <p className="text-sm text-gray-600">
             Already have an account?{' '}
-            <Link to="/login" className="font-semibold text-blue-400 hover:text-blue-300 transition duration-200">
+            <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">
               Sign In
             </Link>
           </p>

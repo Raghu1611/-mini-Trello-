@@ -13,13 +13,13 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mini-t
 async function seed() {
   try {
     await mongoose.connect(MONGODB_URI);
-    console.log('🌱  Connected to MongoDB for seeding...');
+    console.log('Connected to MongoDB for seeding...');
 
     // Clear existing data
     await User.deleteMany({});
     await Board.deleteMany({});
     await Card.deleteMany({});
-    console.log('🧹  Cleared existing users, boards, and cards.');
+    console.log('Cleared existing users, boards, and cards.');
 
     // Create Admin User
     const adminPassword = await bcrypt.hash('admin123', 12);
@@ -29,7 +29,7 @@ async function seed() {
       password: adminPassword,
       role: 'admin',
     });
-    console.log('👤  Admin user created: admin@minitrello.com (password: admin123)');
+    console.log('Admin user created: admin@minitrello.com (password: admin123)');
 
     // Create Member User
     const memberPassword = await bcrypt.hash('member123', 12);
@@ -39,7 +39,7 @@ async function seed() {
       password: memberPassword,
       role: 'member',
     });
-    console.log('👤  Member user created: member@minitrello.com (password: member123)');
+    console.log('Member user created: member@minitrello.com (password: member123)');
 
     // Create another Member User for assigning tasks
     const john = await User.create({
@@ -48,7 +48,7 @@ async function seed() {
       password: memberPassword,
       role: 'member',
     });
-    console.log('👤  Member user created: john@minitrello.com (password: member123)');
+    console.log('Member user created: john@minitrello.com (password: member123)');
 
     // Create a default Board
     const board = await Board.create({
@@ -56,7 +56,7 @@ async function seed() {
       description: 'Main board for managing client deliverables and sprints.',
       creator: admin._id,
     });
-    console.log('📋  Default Board created: Development Sprint');
+    console.log('Default Board created: Development Sprint');
 
     // Create sample Cards
     const cards = [
@@ -107,11 +107,11 @@ async function seed() {
     ];
 
     await Card.create(cards);
-    console.log('🗂️  Sample cards seeded.');
-    console.log('✅  Database seeding complete!');
+    console.log('Sample cards seeded.');
+    console.log('Database seeding complete!');
     process.exit(0);
   } catch (error) {
-    console.error('❌  Error during seeding:', error.message);
+    console.error('Error during seeding:', error.message);
     process.exit(1);
   }
 }

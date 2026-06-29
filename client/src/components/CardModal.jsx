@@ -80,22 +80,22 @@ export default function CardModal({ isOpen, onClose, onSubmit, card = null }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-      <div className="w-full max-w-lg bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-2xl shadow-2xl space-y-6 animate-fade-in max-h-[90vh] overflow-y-auto">
-        <div className="flex justify-between items-center pb-2 border-b border-slate-800">
-          <h2 className="text-xl font-bold text-white">
-            {isEditMode ? 'Edit Task Card' : 'Create Task Card'}
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/50 backdrop-blur-sm">
+      <div className="w-full max-w-lg bg-white border border-gray-200 p-6 sm:p-8 rounded-lg shadow-xl space-y-6 max-h-[90vh] overflow-y-auto">
+        <div className="flex justify-between items-center pb-4 border-b border-gray-100">
+          <h2 className="text-lg font-semibold text-gray-900">
+            {isEditMode ? 'Edit Task' : 'Create Task'}
           </h2>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-white transition duration-200 text-lg"
+            className="text-gray-400 hover:text-gray-600 transition-colors"
           >
             ✕
           </button>
         </div>
 
         {error && (
-          <div className="bg-red-950/40 border border-red-900 text-red-400 px-4 py-2.5 rounded-xl text-sm text-center">
+          <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 text-sm rounded-r-md">
             {error}
           </div>
         )}
@@ -103,37 +103,37 @@ export default function CardModal({ isOpen, onClose, onSubmit, card = null }) {
         <form onSubmit={handleFormSubmit} className="space-y-4">
           {/* Title */}
           <div>
-            <label className="block text-sm font-medium text-slate-300">Task Title *</label>
+            <label className="block text-sm font-medium text-gray-700">Task Title *</label>
             <input
               type="text"
               required
               placeholder="e.g. Implement drag-and-drop"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="mt-1 block w-full px-4 py-2.5 bg-slate-950 border border-slate-850 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition duration-200"
+              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
             />
           </div>
 
           {/* Description */}
           <div>
-            <label className="block text-sm font-medium text-slate-300">Description</label>
+            <label className="block text-sm font-medium text-gray-700">Description</label>
             <textarea
               rows="4"
               placeholder="Provide context or instructions for this task..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="mt-1 block w-full px-4 py-2.5 bg-slate-950 border border-slate-850 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition duration-200"
+              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
             />
           </div>
 
           {/* Assignee Selection */}
           <div>
-            <label className="block text-sm font-medium text-slate-300">Assignee</label>
+            <label className="block text-sm font-medium text-gray-700">Assignee</label>
             <select
               value={assigneeId}
               onChange={(e) => setAssigneeId(e.target.value)}
               disabled={loadingUsers}
-              className="mt-1 block w-full px-4 py-2.5 bg-slate-950 border border-slate-850 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition duration-200"
+              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
             >
               <option value="">Unassigned</option>
               {users.map((u) => (
@@ -148,18 +148,18 @@ export default function CardModal({ isOpen, onClose, onSubmit, card = null }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Priority pills */}
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-1.5">Priority Tag</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Priority Tag</label>
               <div className="flex gap-2">
                 {['low', 'medium', 'high'].map((p) => {
                   const colors = {
-                    low: 'bg-emerald-950 text-emerald-400 border-emerald-800 active:bg-emerald-800',
-                    medium: 'bg-amber-950 text-amber-400 border-amber-800 active:bg-amber-800',
-                    high: 'bg-rose-950 text-rose-400 border-rose-800 active:bg-rose-850',
+                    low: 'text-emerald-700 bg-emerald-50 border-emerald-200 hover:bg-emerald-100',
+                    medium: 'text-amber-700 bg-amber-50 border-amber-200 hover:bg-amber-100',
+                    high: 'text-rose-700 bg-rose-50 border-rose-200 hover:bg-rose-100',
                   };
                   const activeColors = {
-                    low: 'bg-emerald-600 text-white border-emerald-500 shadow-md shadow-emerald-500/10',
-                    medium: 'bg-amber-600 text-white border-amber-500 shadow-md shadow-amber-500/10',
-                    high: 'bg-rose-600 text-white border-rose-500 shadow-md shadow-rose-500/10',
+                    low: 'bg-emerald-600 text-white border-emerald-600 shadow-sm',
+                    medium: 'bg-amber-600 text-white border-amber-600 shadow-sm',
+                    high: 'bg-rose-600 text-white border-rose-600 shadow-sm',
                   };
                   const isSelected = priority === p;
                   return (
@@ -167,8 +167,8 @@ export default function CardModal({ isOpen, onClose, onSubmit, card = null }) {
                       key={p}
                       type="button"
                       onClick={() => setPriority(p)}
-                      className={`flex-1 py-2 rounded-xl text-xs font-bold uppercase tracking-wider border transition-all duration-200 ${
-                        isSelected ? activeColors[p] : `text-slate-400 border-slate-800 hover:bg-slate-850 hover:text-slate-200`
+                      className={`flex-1 py-1.5 rounded-md text-xs font-semibold capitalize border transition-all ${
+                        isSelected ? activeColors[p] : colors[p]
                       }`}
                     >
                       {p}
@@ -180,28 +180,28 @@ export default function CardModal({ isOpen, onClose, onSubmit, card = null }) {
 
             {/* Due Date */}
             <div>
-              <label className="block text-sm font-medium text-slate-300">Due Date</label>
+              <label className="block text-sm font-medium text-gray-700">Due Date</label>
               <input
                 type="date"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
-                className="mt-1 block w-full px-4 py-2.5 bg-slate-950 border border-slate-850 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition duration-200"
+                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
               />
             </div>
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 border-t border-slate-800">
+          <div className="flex justify-end gap-3 pt-5 border-t border-gray-100 mt-6">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 bg-slate-800 hover:bg-slate-750 border border-slate-700 text-sm font-semibold rounded-xl transition duration-200 text-slate-300"
+              className="px-4 py-2 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 text-sm font-medium rounded-md transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-sm font-semibold rounded-xl transition duration-200 shadow-md text-white disabled:opacity-50"
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-sm font-medium rounded-md text-white transition-colors shadow-sm disabled:opacity-50"
             >
               {submitting ? 'Saving...' : isEditMode ? 'Save Changes' : 'Create Task'}
             </button>
